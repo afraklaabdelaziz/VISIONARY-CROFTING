@@ -14,4 +14,6 @@ public interface IClientService {
 
     Client findByEmail(String email);
 
+    Client loginClient(String email,String password);
+
 }

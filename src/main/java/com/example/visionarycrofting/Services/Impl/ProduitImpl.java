@@ -3,12 +3,16 @@ package com.example.visionarycrofting.Services.Impl;
 import com.example.visionarycrofting.Entities.Category;
 import com.example.visionarycrofting.Entities.CommandeItem;
 import com.example.visionarycrofting.Entities.Produit;
+import com.example.visionarycrofting.Repositories.IproduitRepository;
 import com.example.visionarycrofting.Services.IProduitService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 public class ProduitImpl implements IProduitService {
+    @Autowired
+    IproduitRepository produitRepository;
     @Override
     public Produit addProduit(Produit produit) {
         return null;
@@ -26,7 +30,7 @@ public class ProduitImpl implements IProduitService {
 
     @Override
     public List<Produit> getAllProduits() {
-        return null;
+        return produitRepository.findAll();
     }
 
     @Override

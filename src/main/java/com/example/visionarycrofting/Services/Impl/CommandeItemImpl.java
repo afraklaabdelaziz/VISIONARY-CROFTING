@@ -1,15 +1,22 @@
 package com.example.visionarycrofting.Services.Impl;
 
 import com.example.visionarycrofting.Entities.CommandeItem;
+import com.example.visionarycrofting.Repositories.ICommandeItemRepository;
 import com.example.visionarycrofting.Services.ICommandeItemService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 public class CommandeItemImpl implements ICommandeItemService {
+
+    @Autowired
+    ICommandeItemRepository commandeItemRepository;
+
     @Override
     public CommandeItem save(CommandeItem commandeItems) {
-        return null;
+        commandeItemRepository.save(commandeItems);
+        return commandeItems;
     }
 
     @Override
