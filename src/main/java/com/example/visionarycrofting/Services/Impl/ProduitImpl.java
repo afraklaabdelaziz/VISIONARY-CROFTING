@@ -3,6 +3,7 @@ package com.example.visionarycrofting.Services.Impl;
 import com.example.visionarycrofting.Entities.Category;
 import com.example.visionarycrofting.Entities.CommandeItem;
 import com.example.visionarycrofting.Entities.Produit;
+import com.example.visionarycrofting.Entities.Stock;
 import com.example.visionarycrofting.Repositories.IproduitRepository;
 import com.example.visionarycrofting.Services.IProduitService;
 import com.example.visionarycrofting.Utiles.GenerateReference;
@@ -53,11 +54,21 @@ public class ProduitImpl implements IProduitService {
 
     @Override
     public List<Produit> findProuitsByCategory(Category category) {
-        return null;
+        return produitRepository.findProduitByCategory(category);
+    }
+
+    @Override
+    public List<Produit> findProuitsByCategoryAndStock(Stock stock, Category category) {
+        return produitRepository.findProduitByStockAndCategory(stock,category);
     }
 
     @Override
     public void updateProduitQuantity(Produit produit1, CommandeItem commandeItems) {
 
+    }
+
+    @Override
+    public List<Produit> findByStock(Stock stock) {
+        return produitRepository.findProduitByStock(stock);
     }
 }

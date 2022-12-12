@@ -8,12 +8,10 @@ import com.example.visionarycrofting.Utiles.GenerateReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import javax.websocket.server.PathParam;
 
 @Controller
 @RequestMapping("/stock")
@@ -25,8 +23,13 @@ public class StockController {
     @Autowired
     IAppelOffreService appelOffreService;
     @GetMapping("/allproduit")
-    public String allProduits(Model model){
-        model.addAttribute("produits",produitService.getAllProduits());
+    public String allProduits(Model model,HttpSession session,@PathParam("category") Category category){
+        Stock stock = (Stock) session.getAttribute("stock");
+        if (category != null){
+            model.addAttribute("produits",produitService.findProuitsByCategoryAndStock(stock,category));
+        }else {
+            model.addAttribute("produits",produitService.findByStock(stock));
+        }
         model.addAttribute("category", Category.values());
         return "produitsStock";
     }
@@ -38,7 +41,6 @@ public class StockController {
 
     @PostMapping("/appelOffre/add")
     public String addAppelOffre(@ModelAttribute AppelOffre appelOffre){
-        System.out.println(appelOffre.getStock());
         appelOffre.setStatusAppelOffre(StatusAppelOffre.OUVERTE);
         appelOffreService.addAppelOffre(appelOffre);
         return "redirect:/stock/allproduit";
@@ -51,7 +53,6 @@ public class StockController {
 
     @PostMapping("/login")
     public String loginClient(@ModelAttribute Stock stock , Model model, HttpSession session){
-        System.out.println(stockService.findByEmail(stock.getEmail()));
         session.setAttribute("stock",stockService.findByEmail(stock.getEmail()));
         if(stockService.loginStock(stock.getEmail(),stock.getPassword())){
 
@@ -63,7 +64,7 @@ public class StockController {
 
     }
     @GetMapping("/mesappelsoffre")
-    public String mesAppelsOffres(Model model,HttpSession session){
+    public String mesAppelsOffres(Model model, HttpSession session){
         Stock stock = (Stock) session.getAttribute("stock");
         model.addAttribute("appelOffres",appelOffreService.findAppelOffrsByStock(stock));
         return "appelsOffreStock";

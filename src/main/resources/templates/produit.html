@@ -518,12 +518,14 @@
                     </div>
                 </div>
                 <div class="col-lg-7 col-custom">
-                    <div class="product-summery position-relative">
+                    <form method="post" action="/commandeitem/add" class="product-summery position-relative">
+                        <input type="hidden" name="produit" th:value="${produit.id}">
+                        <input type="hidden" name="prix" th:value="${produit.prixInitial}">
                         <div class="product-head mb-3">
-                            <h2 class="product-title" th:text="${produit.nom}"></h2>
+                            <input class="product-title border-0" name="nom" th:value="${produit.nom}">
                         </div>
                         <div class="price-box mb-2">
-                            <span class="regular-price"th:text="${produit.prixInitial}" ></span>
+                            <input class="regular-price border-0"th:value="${produit.prixInitial}" name="prixInitial" >
                             <span class="old-price"><del th:text="${produit.prixInitial}" ></del></span>
                         </div>
                         <div class="product-rating mb-3">
@@ -536,19 +538,20 @@
                         <div class="sku mb-3">
                             <span>SKU: 12345</span>
                         </div>
-                        <p class="desc-content mb-5"th:text="${produit.description}" ></p>
+                        <input name="description" class="desc-content mb-5 border-0"th:value="${produit.description}" >
                         <div class="quantity-with_btn mb-5">
                             <div class="quantity">
                                 <div class="cart-plus-minus">
-                                    <input class="cart-plus-minus-box" value="0" type="text">
+                                    <input class="cart-plus-minus-box" name="quantity" th:value="1" type="text">
                                     <div class="dec qtybutton">-</div>
                                     <div class="inc qtybutton">+</div>
                                 </div>
                             </div>
                             <div class="add-to_cart">
-                                <a class="btn product-cart button-icon flosun-button dark-btn" href="cart.html">Add to cart</a>
+                                <input type="submit" class="btn product-cart button-icon flosun-button dark-btn" value="Add to cart">
                             </div>
                         </div>
+                    </form>
     <!-- Single Product Main Area End -->
 
     <!-- Modal -->

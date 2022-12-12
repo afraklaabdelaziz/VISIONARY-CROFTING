@@ -39,7 +39,7 @@ public class CommandeItemController {
              List<CommandeItem> commandeItems = commandeFind.getCommandeItems();
              Float prixTotal = 0F;
              for (CommandeItem commandeItem : commandeItems){
-                 prixTotal+= commandeItem.getPrix();
+                 prixTotal+= (commandeItem.getPrix()*commandeItem.getQuantity());
              }
              model.addAttribute("commadeItems",commandeItems);
              model.addAttribute("idCommande",commandeFind.getId());

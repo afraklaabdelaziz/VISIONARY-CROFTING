@@ -24,7 +24,6 @@ public class CommandeImpl implements ICommandeService {
             return null;
         }
         else {
-            commande.setStatus(StatusCommande.EFFECTUER);
             commande.setDate(LocalDate.now());
             commandeRepository.save(commande);
             return commande;

@@ -423,21 +423,20 @@
                                 <tr th:each="item : ${commadeItems}">
                                     <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/images/product/small-size/4.jpg" alt="Product" /></a></td>
                                     <td class="pro-title" th:text="${item.produit.nom}" ></td>
-                                    <td class="pro-price"><span th:text="${item.prix/item.quantity}" ></span></td>
+                                    <td class="pro-price"><span th:text="${item.prix}" ></span></td>
                                     <td class="pro-quantity">
                                         <div class="quantity">
                                             <form class="cart-plus-minus">
-                                                <input class="cart-plus-minus-box" th:value="${item.quantity}" type="text">
+                                                <input class="cart-plus-minus-box" name="quantity" th:value="${item.quantity}" type="text">
                                                 <div class="dec qtybutton">-</div>
                                                 <div class="inc qtybutton">+</div>
                                                 <div class="dec qtybutton"><i class="fa fa-minus"></i></div>
                                                 <div class="inc qtybutton"><i class="fa fa-plus"></i></div>
-                                                <a href="#" class="btn flosun-button primary-btn rounded-0 black-btn">Update Cart</a>
                                             </form>
                                         </div>
                                     </td>
-                                    <td class="pro-subtotal"><span th:text="${item.prix}" ></span></td>
-                                    <td class="pro-remove"><a href="#"><i class="lnr lnr-trash"></i></a></td>
+                                    <td class="pro-subtotal"><span th:text="${item.prix*item.quantity}" ></span></td>
+                                    <td class="pro-remove"><a href="/removeCommandeItem"><i class="lnr lnr-trash"></i></a></td>
                                 </tr>
                             </tbody>
                         </table>
