@@ -1,9 +1,6 @@
 package com.example.visionarycrofting.Controllers;
 
-import com.example.visionarycrofting.Entities.Commande;
-import com.example.visionarycrofting.Entities.CommandeItem;
-import com.example.visionarycrofting.Entities.Produit;
-import com.example.visionarycrofting.Entities.StatusCommande;
+import com.example.visionarycrofting.Entities.*;
 import com.example.visionarycrofting.Services.ICommandeItemService;
 import com.example.visionarycrofting.Services.ICommandeService;
 import com.example.visionarycrofting.Services.IProduitService;
@@ -33,8 +30,9 @@ public class CommandeItemController {
         return "redirect:/produits";
     }
     @GetMapping("/cart")
-    public String allCommandeItems (Model model){
-        Commande commandeFind = commandeService.getCommandeClientStatusEncours(1L,StatusCommande.EN_COURS);
+    public String allCommandeItems (Model model,HttpSession session){
+        Client client = (Client) session.getAttribute("client");
+        Commande commandeFind = commandeService.getCommandeClientStatusEncours(client.getId(),StatusCommande.EN_COURS);
         if (commandeFind != null){
              List<CommandeItem> commandeItems = commandeFind.getCommandeItems();
              Float prixTotal = 0F;

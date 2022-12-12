@@ -43,17 +43,11 @@ public class CommandeItemImpl implements ICommandeItemService {
         if(commandeItemFind != null && commandeFind != null){
             commandeItemFind.setQuantity(commandeItem.getQuantity()+ commandeItemFind.getQuantity());
             commandeItemFind.setPrix(commandeItemFind.getPrix()* commandeItemFind.getQuantity());
-            Produit produit = produitService.getProduitById(commandeItemFind.getProduit().getId());
-            produit.setQuantity(produit.getQuantity() - commandeItemFind.getQuantity());
-            produitService.addProduit(produit);
             commandeItemRepository.save(commandeItemFind);
             return commandeItem;
         }else {
             commandeItem.setReference(GenerateReference.applyGenerateReference());
             commandeItemRepository.save(commandeItem);
-            Produit produit = produitService.getProduitById(commandeItem.getProduit().getId());
-            produit.setQuantity(produit.getQuantity() - commandeItem.getQuantity());
-            produitService.addProduit(produit);
             return commandeItem;
         }
 
@@ -62,7 +56,12 @@ public class CommandeItemImpl implements ICommandeItemService {
 
     @Override
     public boolean deleteByRef(String ref) {
-        return false;
+        if (ref == null || ref.isEmpty()){
+            return false;
+        }else {
+            return commandeItemRepository.deleteByReference(ref);
+        }
+
     }
 
     @Override

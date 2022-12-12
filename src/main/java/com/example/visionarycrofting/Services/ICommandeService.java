@@ -13,6 +13,9 @@ public interface ICommandeService {
     Commande findByReference(String ref);
     List<Commande> findEffectuedCommands();
     Commande updateCommandePrix(Commande commande);
+
+    Commande updateCommande(Commande commande);
+
     void saveCommandeItems(Commande commande , List<CommandeItem> commandeItems);
     Commande getCommandeClientStatusEncours(Long idClient, StatusCommande status);
 }

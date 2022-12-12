@@ -436,7 +436,7 @@
                                         </div>
                                     </td>
                                     <td class="pro-subtotal"><span th:text="${item.prix*item.quantity}" ></span></td>
-                                    <td class="pro-remove"><a href="/removeCommandeItem"><i class="lnr lnr-trash"></i></a></td>
+                                    <td class="pro-remove"><a th:href="@{'/produits/produit/' + ${item.id}}"><i class="lnr lnr-trash"></i></a></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -473,6 +473,7 @@
                             </div>
                         </div>
                         <form method="post" action="/commande/update">
+                            <input type="hidden" th:each="commandeItem: ${commadeItems}" th:value="${commandeItem.id}" name="commandeItems">
                             <input type="hidden" name="client" th:value="${session.client.id}">
                             <input type="hidden" name="prixTotal" th:value="${prixTotal}">
                             <input type="hidden" name="id" th:value="${idCommande}">

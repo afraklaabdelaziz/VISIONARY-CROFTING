@@ -19,7 +19,7 @@ public class CommandeItem {
 
     private int quantity;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Commande commande;
 
     @ManyToOne
@@ -92,7 +92,6 @@ public class CommandeItem {
                 ", reference='" + reference + '\'' +
                 ", prix=" + prix +
                 ", quantity=" + quantity +
-                ", commande=" + commande +
                 ", produit=" + produit +
                 '}';
     }
