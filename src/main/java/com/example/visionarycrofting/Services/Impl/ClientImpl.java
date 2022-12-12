@@ -14,7 +14,18 @@ public class ClientImpl implements IClientService {
     IClientRepository clientRepository;
     @Override
     public Client save(Client client) {
-        return clientRepository.save(client);
+        if (client == null ){
+            return null;
+        }else if(client.getNom() == null || client.getPassword() == null
+        || client.getTelephone() == null || client.getEmail() == null){
+            return null;
+        }else if (clientRepository.findByEmail(client.getEmail()) != null || clientRepository.findByTelephone(client.getTelephone()) != null ){
+            System.out.println("this client already exist");
+            return null;
+        }else {
+            return clientRepository.save(client);
+        }
+
     }
 
     @Override
@@ -34,11 +45,19 @@ public class ClientImpl implements IClientService {
 
     @Override
     public Client findByEmail(String email) {
-        return null;
+        return clientRepository.findByEmail(email);
     }
 
     @Override
-    public Client loginClient(String email, String password) {
-        return null;
+    public boolean loginClient(String email, String password) {
+        Client client = clientRepository.findByEmail(email);
+        if(client == null){
+            return false;
+        }else if(client.getEmail().equals(email) && client.getPassword().equals(password)){
+            return true;
+        }else {
+            return false;
+
+        }
     }
 }

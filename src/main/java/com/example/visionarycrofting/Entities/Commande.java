@@ -20,10 +20,10 @@ public class Commande {
 
     private Float prixTotal;
 
-
+@Enumerated(EnumType.STRING)
     private StatusCommande status ;
 
-    @OneToMany(mappedBy = "commande", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "commande")
     private List<CommandeItem> commandeItems = new ArrayList<>();
 
     @ManyToOne
@@ -97,16 +97,4 @@ public class Commande {
         this.client = client;
     }
 
-    @Override
-    public String toString() {
-        return "Commande{" +
-                "id=" + id +
-                ", reference='" + reference + '\'' +
-                ", date=" + date +
-                ", prixTotal=" + prixTotal +
-                ", status=" + status +
-                ", commandeItems=" + commandeItems +
-                ", client=" + client +
-                '}';
-    }
 }

@@ -5,6 +5,7 @@ import com.example.visionarycrofting.Entities.CommandeItem;
 import com.example.visionarycrofting.Entities.Produit;
 import com.example.visionarycrofting.Repositories.IproduitRepository;
 import com.example.visionarycrofting.Services.IProduitService;
+import com.example.visionarycrofting.Utiles.GenerateReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,19 @@ public class ProduitImpl implements IProduitService {
     IproduitRepository produitRepository;
     @Override
     public Produit addProduit(Produit produit) {
-        return null;
+        if (produit == null){
+            System.out.println("ce produit est null");
+            return null;
+        }else if(produit.getNom() == null || produit.getDescription() == null ||
+                produit.getCategory() == null || produit.getPrixInitial() == null ||
+         produit.getQuantity() == null || produit.getQuantity()<0){
+            System.out.println("compliter les information");
+            return null;
+        }else {
+            produit.setReference(GenerateReference.applyGenerateReference());
+            produitRepository.save(produit);
+        }
+        return produit;
     }
 
     @Override
@@ -25,7 +38,7 @@ public class ProduitImpl implements IProduitService {
 
     @Override
     public Produit getProduitById(Long id) {
-        return null;
+        return produitRepository.findById(id).get();
     }
 
     @Override

@@ -2,16 +2,33 @@ package com.example.visionarycrofting.Services.Impl;
 
 import com.example.visionarycrofting.Entities.Commande;
 import com.example.visionarycrofting.Entities.CommandeItem;
+import com.example.visionarycrofting.Entities.StatusCommande;
+import com.example.visionarycrofting.Repositories.ICommandeRepository;
 import com.example.visionarycrofting.Services.ICommandeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
+
 @Service
 public class CommandeImpl implements ICommandeService {
+    @Autowired
+    ICommandeRepository commandeRepository;
     @Override
     public Commande save(Commande commande) {
-        return null;
+        if (commande == null){
+            System.out.println("commande null");
+            return null;
+        }else if (commande.getClient() == null || commande.getReference().equals("")) {
+            return null;
+        }
+        else {
+            commande.setStatus(StatusCommande.EFFECTUER);
+            commande.setDate(LocalDate.now());
+            commandeRepository.save(commande);
+            return commande;
+        }
     }
 
     @Override
@@ -20,13 +37,17 @@ public class CommandeImpl implements ICommandeService {
     }
 
     @Override
-    public Optional<Commande> findById(Long id) {
-        return Optional.empty();
+    public Commande findById(Long id) {
+        if (id < 0){
+            System.out.println("error id");
+            return new Commande();
+        }
+        return commandeRepository.findById(id).get();
     }
 
     @Override
     public Commande findByReference(String ref) {
-        return null;
+        return commandeRepository.findCommandeByReference(ref);
     }
 
     @Override
@@ -42,5 +63,10 @@ public class CommandeImpl implements ICommandeService {
     @Override
     public void saveCommandeItems(Commande commande, List<CommandeItem> commandeItems) {
 
+    }
+
+    @Override
+    public Commande getCommandeClientStatusEncours(Long idClient, StatusCommande status) {
+        return commandeRepository.getCommadeClient(idClient,status);
     }
 }

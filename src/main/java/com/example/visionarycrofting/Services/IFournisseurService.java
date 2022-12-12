@@ -11,4 +11,5 @@ public interface IFournisseurService {
     public Fournisseur findByTelephone(String telephone);
     public Fournisseur update(Fournisseur fournisseur);
 
+    boolean loginFournisseur(String email, String password);
 }

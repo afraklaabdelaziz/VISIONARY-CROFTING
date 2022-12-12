@@ -1,21 +1,35 @@
 package com.example.visionarycrofting.Services.Impl;
 
 import com.example.visionarycrofting.Entities.Stock;
+import com.example.visionarycrofting.Repositories.IStockRepository;
 import com.example.visionarycrofting.Services.IStockService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class StockImpl implements IStockService {
+    @Autowired
+    IStockRepository stockRepository;
     @Override
     public Stock saveStock(Stock stock) {
-        return null;
+        if (stock == null ){
+            return null;
+        }else if(stock.getNom() == null || stock.getPassword() == null
+                || stock.getTelephone() == null || stock.getEmail() == null){
+            return null;
+        }else if (stockRepository.findByEmail(stock.getEmail()) != null || stockRepository.findByTelephone(stock.getTelephone()) != null ){
+            System.out.println("this client already exist");
+            return null;
+        }else {
+            return stockRepository.save(stock);
+        }
     }
 
     @Override
     public Stock findByEmail(String email) {
-        return null;
+        return stockRepository.findByEmail(email);
     }
 
     @Override
@@ -35,6 +49,18 @@ public class StockImpl implements IStockService {
 
     @Override
     public Stock findByTelephone(String telephone) {
-        return null;
+        return stockRepository.findByTelephone(telephone);
+    }
+
+    @Override
+    public boolean loginStock(String email, String password) {
+        Stock stock = stockRepository.findByEmail(email);
+        if(stock == null){
+            return false;
+        }else if(stock.getEmail().equals(email) && stock.getPassword().equals(password)){
+            return true;
+        }else {
+            return false;
+        }
     }
 }

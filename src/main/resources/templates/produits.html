@@ -82,7 +82,7 @@
                                         <div class="menu-colum">
                                             <ul>
                                                 <li><span class="mega-menu-text">Product</span></li>
-                                                <li><a href="product-details.html">Single Product</a></li>
+                                                <li><a href="produit.html">Single Product</a></li>
                                                 <li><a href="variable-product-details.html">Variable Product</a></li>
                                                 <li><a href="external-product-details.html">External Product</a></li>
                                                 <li><a href="gallery-product-details.html">Gallery Product</a></li>
@@ -126,8 +126,8 @@
                                         <li><a href="contact-us.html">Contact</a></li>
                                         <li><a href="my-account.html">My Account</a></li>
                                         <li><a href="frequently-questions.html">FAQ</a></li>
-                                        <li><a href="login.html">Login</a></li>
-                                        <li><a href="register.html">Register</a></li>
+                                        <li><a href="loginClient.html">Login</a></li>
+                                        <li><a href="registerClient.html">Register</a></li>
                                     </ul>
                                 </li>
                                 <li>
@@ -172,7 +172,7 @@
                                             <h5>$166.00</h5>
                                         </div>
                                         <div class="cart-links d-flex justify-content-between">
-                                            <a class="btn product-cart button-icon flosun-button dark-btn" href="cart.html">View cart</a>
+                                            <a class="btn product-cart button-icon flosun-button dark-btn" href="/cart">View cart</a>
                                             <a class="btn flosun-button secondary-btn rounded-0" href="checkout.html">Checkout</a>
                                         </div>
                                     </div>
@@ -237,7 +237,7 @@
                                         </li>
                                         <li class="mega-title has-children"><a href="#">Product Details</a>
                                             <ul class="dropdown">
-                                                <li><a href="product-details.html">Single Product Details</a></li>
+                                                <li><a href="produit.html">Single Product Details</a></li>
                                                 <li><a href="variable-product-details.html">Variable Product Details</a></li>
                                                 <li><a href="external-product-details.html">External Product Details</a></li>
                                                 <li><a href="gallery-product-details.html">Gallery Product Details</a></li>
@@ -422,7 +422,7 @@
                             <div th:classappend="${produit.quantity == 0} ? d-none : ''" class="product-item ">
                                 <div class="single-product position-relative mr-0 ml-0">
                                     <div class="product-image">
-                                        <a class="d-block" href="product-details.html">
+                                        <a class="d-block" th:href="@{'/produits/produit/' + ${produit.id}}">
                                             <img src="assets/images/product/1.jpg" alt="" class="product-image-1 w-100">
                                             <img src="assets/images/product/7.jpg" alt="" class="product-image-2 position-absolute w-100">
                                         </a>
@@ -438,7 +438,7 @@
                                     </div>
                                     <div class="product-content">
                                         <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.html" th:text="${produit.nom}" ></a></h4>
+                                            <h4 class="title-2"> <a th:href="@{'/produits/produit/' + ${produit.id}}" th:text="${produit.nom}" ></a></h4>
                                         </div>
                                         <div class="product-rating">
                                             <i class="fa fa-star"></i>
@@ -451,11 +451,16 @@
                                             <span class="regular-price " th:text="${produit.prixInitial}"></span>
                                             <span class="old-price"><del th:text="${produit.prixInitial}"></del></span>
                                         </div>
-                                        <a href="cart.html" class="btn product-cart">Add to Cart</a>
+                                        <form class="button-listview" method="post" action="/commandeitem/add">
+                                            <input type="hidden" name="quantity" value="1">
+                                            <input type="hidden" name="prix" th:value="${produit.prixInitial}">
+                                            <input type="hidden" name="produit" th:value="${produit.id}">
+                                            <input type="submit" value="Add to Cart" class="btn product-cart" data-toggle="tooltip" data-placement="top" title="Add to Cart"/>
+                                        </form>
                                     </div>
                                     <div class="product-content-listview">
                                         <div class="product-title">
-                                            <h4 class="title-2"> <a href="product-details.html" th:text="${produit.nom}"></a></h4>
+                                            <h4 class="title-2"> <a th:href="@{'/produits/produit/' + ${produit.id}}" th:text="${produit.nom}"></a></h4>
                                         </div>
                                         <div class="product-rating">
                                             <i class="fa fa-star"></i>

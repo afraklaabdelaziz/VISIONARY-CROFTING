@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IStockRepository extends JpaRepository<Stock,Long> {
+    Stock findByEmail(String email);
+
+    Stock findByTelephone(String telephone);
 }

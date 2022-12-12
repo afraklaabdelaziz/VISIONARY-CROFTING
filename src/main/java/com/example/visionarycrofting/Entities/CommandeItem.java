@@ -1,5 +1,8 @@
 package com.example.visionarycrofting.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 import javax.persistence.*;
 
 @Entity
@@ -65,10 +68,11 @@ public class CommandeItem {
         this.quantity = quantity;
     }
 
+    @JsonIgnore
     public Commande getCommande() {
         return commande;
     }
-
+    @JsonSetter
     public void setCommande(Commande commande) {
         this.commande = commande;
     }

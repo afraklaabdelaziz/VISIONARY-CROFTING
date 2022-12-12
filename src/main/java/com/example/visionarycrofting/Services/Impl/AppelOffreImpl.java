@@ -2,8 +2,10 @@ package com.example.visionarycrofting.Services.Impl;
 
 import com.example.visionarycrofting.Entities.AppelOffre;
 import com.example.visionarycrofting.Entities.StatusAppelOffre;
+import com.example.visionarycrofting.Entities.Stock;
 import com.example.visionarycrofting.Repositories.IAppelOffreRepository;
 import com.example.visionarycrofting.Services.IAppelOffreService;
+import com.example.visionarycrofting.Utiles.GenerateReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +22,18 @@ public class AppelOffreImpl implements IAppelOffreService {
 
     @Override
     public AppelOffre addAppelOffre(AppelOffre appelOffre) {
-        appelOffreRepository.save(appelOffre);
-        return appelOffre;
+        if (appelOffre == null){
+            System.out.println("appel offre est null");
+            return null;
+        }else if(appelOffre.getProduit() == null || appelOffre.getQuantity() <=0){
+            System.out.println("Commpliter les info");
+            return null;
+        }else {
+            appelOffre.setReference(GenerateReference.applyGenerateReference());
+            appelOffreRepository.save(appelOffre);
+            return appelOffre;
+        }
+
     }
 
     @Override
@@ -38,8 +50,14 @@ public class AppelOffreImpl implements IAppelOffreService {
 
     @Override
     public List<AppelOffre> findByStatusAppelOffre(StatusAppelOffre statusAppelOffre) {
-        return null;
+        return appelOffreRepository.findByStatusAppelOffre(statusAppelOffre);
     }
+
+    @Override
+    public List<AppelOffre> findAppelOffrsByStock(Stock stock) {
+        return appelOffreRepository.findAppelOffreByStock(stock);
+    }
+
 
     @Override
     public Optional<AppelOffre> findById(Long id) {

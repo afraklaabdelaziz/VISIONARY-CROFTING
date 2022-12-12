@@ -9,16 +9,17 @@ public class AppelOffre {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String reference;
+    private int quantity;
     @Enumerated(EnumType.STRING)
     private StatusAppelOffre statusAppelOffre;
     @ManyToOne
     private Produit produit;
 
     @ManyToOne
-    Stock stock;
+    private Stock stock;
 
     @ManyToOne
-    Fournisseur fournisseur;
+    private Fournisseur fournisseur;
 
     public AppelOffre(String reference, StatusAppelOffre statusAppelOffre, Produit produit, Stock stock, Fournisseur fournisseur) {
         this.reference = reference;
@@ -30,6 +31,7 @@ public class AppelOffre {
 
     public AppelOffre() {
     }
+
 
     public Long getId() {
         return id;
@@ -45,6 +47,14 @@ public class AppelOffre {
 
     public void setReference(String reference) {
         this.reference = reference;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public StatusAppelOffre getStatusAppelOffre() {
@@ -84,6 +94,7 @@ public class AppelOffre {
         return "AppelOffre{" +
                 "id=" + id +
                 ", reference='" + reference + '\'' +
+                ", quantity=" + quantity +
                 ", statusAppelOffre=" + statusAppelOffre +
                 ", produit=" + produit +
                 ", stock=" + stock +

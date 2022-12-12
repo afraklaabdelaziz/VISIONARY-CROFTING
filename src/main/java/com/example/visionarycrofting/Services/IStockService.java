@@ -17,4 +17,6 @@ public interface IStockService {
     public List<Stock> getAllStock();
 
     public Stock findByTelephone(String telephone);
+
+    boolean loginStock(String email, String password);
 }
