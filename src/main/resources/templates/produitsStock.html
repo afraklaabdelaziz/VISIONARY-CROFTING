@@ -350,6 +350,7 @@
                                         <span class="regular-price " th:text="${produit.prixInitial}"></span>
                                         <span class="old-price"><del th:text="${produit.prixInitial}"></del></span>
                                     </div>
+                                    <span class="regular-price " th:text="${produit.quantity}"></span>
                                 </div>
                                 <div class="product-content-listview">
                                     <div class="product-title">
@@ -359,6 +360,7 @@
                                         <span class="regular-price " th:text="${produit.prixInitial}"></span>
                                         <span class="old-price"><del th:text="${produit.prixInitial}"></del></span>
                                     </div>
+                                    <span class="regular-price " th:text="${produit.quantity}"></span>
                                 </div>
                             </div>
                         </div>
@@ -415,10 +417,10 @@
                         <div class="widget-list widget-mb-1">
                             <h3 class="widget-title">Price Filter</h3>
                             <!-- Widget Menu Start -->
-                            <form action="#">
+                            <form method="get">
                                 <div id="slider-range"></div>
                                 <button type="submit">Filter</button>
-                                <input type="text" name="text" id="amount" />
+                                <input type="text" name="price" id="amount" />
                             </form>
                             <!-- Widget Menu End -->
                         </div>

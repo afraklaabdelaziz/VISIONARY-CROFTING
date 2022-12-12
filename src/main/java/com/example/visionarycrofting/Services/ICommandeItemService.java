@@ -8,7 +8,7 @@ import java.util.List;
 public interface ICommandeItemService {
     CommandeItem save(CommandeItem commandeItems, HttpSession session);
 
-    boolean deleteByRef(String ref);
+    void deleteByRef(String ref);
 
     CommandeItem findByRef(String ref);
 

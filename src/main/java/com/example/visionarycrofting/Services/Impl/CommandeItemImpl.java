@@ -8,6 +8,7 @@ import com.example.visionarycrofting.Services.IProduitService;
 import com.example.visionarycrofting.Utiles.GenerateReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
@@ -55,11 +56,12 @@ public class CommandeItemImpl implements ICommandeItemService {
     }
 
     @Override
-    public boolean deleteByRef(String ref) {
+    @Transactional
+    public void deleteByRef(String ref) {
         if (ref == null || ref.isEmpty()){
-            return false;
+            return;
         }else {
-            return commandeItemRepository.deleteByReference(ref);
+            commandeItemRepository.deleteByReference(ref);
         }
 
     }

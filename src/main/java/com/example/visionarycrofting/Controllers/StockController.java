@@ -4,7 +4,6 @@ import com.example.visionarycrofting.Entities.*;
 import com.example.visionarycrofting.Services.IAppelOffreService;
 import com.example.visionarycrofting.Services.IProduitService;
 import com.example.visionarycrofting.Services.IStockService;
-import com.example.visionarycrofting.Utiles.GenerateReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.websocket.server.PathParam;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Controller
 @RequestMapping("/stock")
@@ -23,9 +24,21 @@ public class StockController {
     @Autowired
     IAppelOffreService appelOffreService;
     @GetMapping("/allproduit")
-    public String allProduits(Model model,HttpSession session,@PathParam("category") Category category){
+    public String allProduits(Model model,HttpSession session,@PathParam("category") Category category,@PathParam("price") String price){
         Stock stock = (Stock) session.getAttribute("stock");
-        if (category != null){
+        if (price != null){
+           String min = "";
+            String max = "";
+            Pattern p = Pattern.compile("\\d+");
+            Matcher m = p.matcher(price);
+            while(m.find()) {
+                min = max;
+                max = m.group();
+            }
+            model.addAttribute("produits",produitService.findProduitByPrixInitialBetweenStock(stock,  Double.parseDouble(min), Double.parseDouble(max)));
+        }
+
+        else if (category != null){
             model.addAttribute("produits",produitService.findProuitsByCategoryAndStock(stock,category));
         }else {
             model.addAttribute("produits",produitService.findByStock(stock));

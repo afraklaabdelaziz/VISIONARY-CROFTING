@@ -71,4 +71,14 @@ public class ProduitImpl implements IProduitService {
     public List<Produit> findByStock(Stock stock) {
         return produitRepository.findProduitByStock(stock);
     }
+
+    @Override
+    public List<Produit> findProduitByPrixInitialBetween(Double priceMin, Double priceMax) {
+        return produitRepository.findProduitByPrixInitialBetween(priceMin,priceMax);
+    }
+
+    @Override
+    public List<Produit> findProduitByPrixInitialBetweenStock(Stock stock, Double priceMin, Double priceMax) {
+        return produitRepository.findProduitByStockAndPrixInitialBetween(stock,priceMin,priceMax);
+    }
 }

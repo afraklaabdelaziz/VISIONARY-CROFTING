@@ -14,4 +14,6 @@ public interface IproduitRepository extends JpaRepository<Produit,Long> {
     List<Produit> findProduitByStockAndCategory(Stock stock, Category category);
     List<Produit> findProduitByStock(Stock stock);
     List<Produit> findProduitByCategory(Category category);
+    List<Produit> findProduitByPrixInitialBetween(Double priceMin,Double priceMax);
+    List<Produit> findProduitByStockAndPrixInitialBetween(Stock stock,Double priceMin,Double priceMax);
 }

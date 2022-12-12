@@ -18,6 +18,8 @@ public interface IProduitService {
     List<Produit> findProuitsByCategoryAndStock(Stock stock,Category category);
     void updateProduitQuantity(Produit produit1, CommandeItem commandeItems);
     List<Produit> findByStock(Stock stock);
+    List<Produit> findProduitByPrixInitialBetween(Double priceMin,Double priceMax);
 
+    List<Produit> findProduitByPrixInitialBetweenStock(Stock stock, Double priceMin, Double priceMax);
 }
 
