@@ -1,6 +1,7 @@
 package com.example.visionarycrofting.Entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,8 +12,11 @@ public class Produit {
     private Long id;
     private String reference;
     private String nom;
+    @NotEmpty(message = "prix doit etre un value")
     private Double prixInitial;
+    @NotEmpty(message = "description doit etre un value")
     private String description;
+    @NotEmpty(message = "quantity doit etre un value")
     private Integer quantity;
     private Category category;
     @ManyToOne

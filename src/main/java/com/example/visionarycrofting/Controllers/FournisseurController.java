@@ -7,6 +7,7 @@ import com.example.visionarycrofting.Services.IFournisseurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,7 +43,10 @@ public class FournisseurController {
         return "registerFournisseur";
     }
     @PostMapping("/register")
-    public String registerClient(@ModelAttribute Fournisseur fournisseur){
+    public String registerClient(@ModelAttribute Fournisseur fournisseur, BindingResult result){
+        if (result.hasErrors()){
+            return "registerFournisseur";
+        }
         fournisseurService.saveFornisseur(fournisseur);
         return "redirect:login";
     }

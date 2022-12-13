@@ -1,6 +1,9 @@
 package com.example.visionarycrofting.Entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -9,11 +12,18 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotEmpty(message = "nom de client doit etre un valeur")
+    @Size(min = 4,max = 20,message = "min est 4 max est 20")
     private String nom;
     @Column(unique = true)
+    @NotEmpty(message = "email doit etre in value")
+    @Email(message = "email doit etre sous format email")
     private String email;
     @Column(unique = true)
+    @NotEmpty(message = "telephone doit etre un value")
     private String telephone;
+    @NotEmpty(message = "password doit etre un value")
+    @Size(min = 4,max = 20 , message = "password doit erte entre 4 et 20")
     private String password;
 
     @OneToMany(mappedBy = "client" , fetch = FetchType.LAZY)

@@ -50,15 +50,19 @@
                             <div class="single-input-item mb-3">
                                 <input type="text" placeholder="name" name="nom">
                             </div>
+                            <!-- <p th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></p>-->
                             <div class="single-input-item mb-3">
                                 <input type="email" placeholder="Email" name="email">
                             </div>
+                            <!-- <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>-->
                             <div class="single-input-item mb-3">
                                 <input type="text" placeholder="Enter your Telephone" name="telephone">
                             </div>
+                            <!-- <p th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}"></p>-->
                             <div class="single-input-item mb-3">
                                 <input type="password" placeholder="Enter your Password" name="password">
                             </div>
+                            <!-- <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>-->
                             <div class="single-input-item mb-3">
                                 <button class="btn flosun-button secondary-btn theme-color rounded-0">Register</button>
                             </div>

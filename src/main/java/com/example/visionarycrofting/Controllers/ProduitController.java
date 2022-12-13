@@ -34,7 +34,7 @@ public class ProduitController {
             model.addAttribute("produits",produitService.findProduitByPrixInitialBetween(Double.parseDouble(min), Double.parseDouble(max)));
         }
 
-        if (category != null){
+        else if (category != null){
             model.addAttribute("produits",produitService.findProuitsByCategory(category));
         }else {
             model.addAttribute("produits", produitService.getAllProduits());
