@@ -1,10 +1,12 @@
 package com.example.visionarycrofting.Services.Impl;
 
 import com.example.visionarycrofting.Entities.AppelOffre;
+import com.example.visionarycrofting.Entities.Produit;
 import com.example.visionarycrofting.Entities.StatusAppelOffre;
 import com.example.visionarycrofting.Entities.Stock;
 import com.example.visionarycrofting.Repositories.IAppelOffreRepository;
 import com.example.visionarycrofting.Services.IAppelOffreService;
+import com.example.visionarycrofting.Services.IProduitService;
 import com.example.visionarycrofting.Utiles.GenerateReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,8 @@ import java.util.Optional;
 public class AppelOffreImpl implements IAppelOffreService {
     @Autowired
     IAppelOffreRepository appelOffreRepository;
+    @Autowired
+    IProduitService produitService;
     @Override
     public List<AppelOffre> getAppelOffres() {
         return appelOffreRepository.findAll();
@@ -43,9 +47,18 @@ public class AppelOffreImpl implements IAppelOffreService {
     }
 
     @Override
-    public AppelOffre updateAppelOffre(Long id, AppelOffre appelOffre) {
-        appelOffreRepository.save(appelOffre);
-        return appelOffre;
+    public AppelOffre updateAppelOffre(AppelOffre appelOffre) {
+        if (appelOffre == null){
+            System.out.println("appel offre est null");
+            return null;
+        }else {
+            appelOffre.setStatusAppelOffre(StatusAppelOffre.VALIDE);
+            Produit produit = produitService.getProduitById(appelOffre.getProduit().getId());
+            produit.setQuantity(produit.getQuantity() + appelOffre.getQuantity());
+            produitService.addProduit(produit);
+            appelOffreRepository.save(appelOffre);
+            return appelOffre;
+        }
     }
 
     @Override

@@ -41,6 +41,7 @@
     <div class="container container-default-2 custom-area">
         <div class="row">
             <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-custom">
+                <h4 th:if="${error != null}" class="alert alert-danger" th:text="${error}" ></h4>
                 <div class="login-register-wrapper">
                     <div class="section-content text-center mb-5">
                         <h2 class="title-4 mb-2">Create Account</h2>

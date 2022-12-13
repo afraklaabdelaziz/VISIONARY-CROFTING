@@ -90,8 +90,8 @@ public class StockController {
     }
     @PostMapping("/register")
     public String registerClient(@Valid @ModelAttribute Stock stock,Model model, BindingResult result){
-        if (result.hasErrors()){
-            model.addAttribute("error",result.hasErrors());
+        if (result.hasErrors() || stockService.saveStock(stock) == null){
+            model.addAttribute("error","merci de compliter votre information");
             return "registerStock";
         }
             stockService.saveStock(stock);

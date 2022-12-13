@@ -69,7 +69,7 @@ public class CommandeImpl implements ICommandeService {
         if (commande == null){
             System.out.println("commande null");
             return null;
-        }else if (commande.getClient() == null || commande.getReference().equals("")) {
+        }else if (commande.getClient() == null || commande.getReference().equals("") || commande.getCommandeItems().size() <=0 ) {
             return null;
         }
         else {

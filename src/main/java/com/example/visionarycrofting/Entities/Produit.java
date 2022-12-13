@@ -12,11 +12,8 @@ public class Produit {
     private Long id;
     private String reference;
     private String nom;
-    @NotEmpty(message = "prix doit etre un value")
     private Double prixInitial;
-    @NotEmpty(message = "description doit etre un value")
     private String description;
-    @NotEmpty(message = "quantity doit etre un value")
     private Integer quantity;
     private Category category;
     @ManyToOne

@@ -340,13 +340,13 @@
                                         <h4 class="title-2"> <span th:text="${appelOffre.produit.nom}"></span></h4>
                                     </div>
                                     <div class="product-title">
-                                        <h4 class="title-2"> <span th:text="${appelOffre.fournisseur.nom}"></span></h4>
+                                        <h4 class="title-2"> <span th:if="${appelOffre.fournisseur != null}" th:text="${appelOffre.fournisseur.nom}"></span></h4>
                                     </div>
                                     <div class="product-title">
                                         <h4 class="title-2"> <span th:text="${appelOffre.statusAppelOffre}"></span></h4>
                                     </div>
                                     <div class="price-box">
-                                        <span class="regular-price " th:text="${appelOffre.fournisseur.telephone}"></span>
+                                        <span class="regular-price " th:if="${appelOffre.fournisseur != null}" th:text="${appelOffre.fournisseur.telephone}"></span>
                                     </div>
                                     <div class="price-box">
                                         <span class="regular-price " th:text="${appelOffre.quantity}"></span>

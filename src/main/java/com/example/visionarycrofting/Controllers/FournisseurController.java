@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("fournisseur")
@@ -43,8 +44,9 @@ public class FournisseurController {
         return "registerFournisseur";
     }
     @PostMapping("/register")
-    public String registerClient(@ModelAttribute Fournisseur fournisseur, BindingResult result){
-        if (result.hasErrors()){
+    public String registerClient(@Valid @ModelAttribute Fournisseur fournisseur, BindingResult result,Model model){
+        if (result.hasErrors() || fournisseurService.saveFornisseur(fournisseur) == null ){
+            model.addAttribute("error","merci de compliter votre information");
             return "registerFournisseur";
         }
         fournisseurService.saveFornisseur(fournisseur);

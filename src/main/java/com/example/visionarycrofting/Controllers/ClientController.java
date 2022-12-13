@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/client")
@@ -40,8 +41,9 @@ public class ClientController {
     }
 
     @PostMapping("/register")
-    public String registerClient(@ModelAttribute Client client, BindingResult result){
-        if (result.hasErrors()){
+    public String registerClient(@Valid @ModelAttribute Client client, BindingResult result, Model model){
+        if (result.hasErrors() || clientService.save(client) == null){
+            model.addAttribute("error","merci de compliter votre information");
             return "registerClient";
         }
         clientService.save(client);

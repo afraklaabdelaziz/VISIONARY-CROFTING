@@ -22,12 +22,7 @@ public class AppelOffreController {
     IProduitService produitService;
     @PostMapping("/")
     public String appelOffre(@ModelAttribute AppelOffre appelOffre){
-        System.out.println(appelOffre.getFournisseur());
-        appelOffre.setStatusAppelOffre(StatusAppelOffre.VALIDE);
-        appelOffreService.addAppelOffre(appelOffre);
-       Produit produit =  produitService.getProduitById(appelOffre.getProduit().getId());
-       produit.setQuantity(produit.getQuantity()+ appelOffre.getQuantity());
-       produitService.addProduit(produit);
+        appelOffreService.updateAppelOffre(appelOffre);
         return "redirect:/fournisseur/allappeloffres";
     }
 }
